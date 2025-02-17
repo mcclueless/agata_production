@@ -27,12 +27,12 @@ export function appendSourceData(
       url: getNodeUrl(node.node.metadata),
       text: node.node.getContent(MetadataMode.NONE),
     }));
-    data.appendMessageAnnotation({
-      type: "sources", 
-      data: {
-        nodes,
-      },
-    });
+    // data.appendMessageAnnotation({
+    //   type: "sources", 
+    //   data: {
+    //     nodes,
+    //   },
+    // });
   } catch (error) {
     console.error("Error appending source data:", error);
   }

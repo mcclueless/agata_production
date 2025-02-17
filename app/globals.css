@@ -88,8 +88,8 @@ body {
   @apply h-full;
   background: 
     linear-gradient(
-      rgba(219, 69, 19, 0.53) 100%,
-      rgba(233, 186, 186, 0) 50%,
+      rgba(219, 69, 19, 0.53) 5%,
+      rgba(195, 152, 152, 0) 50%,
       rgba(251, 246, 218, 0.46) 100%
     ),
     url('/bg.jpg');
