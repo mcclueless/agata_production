@@ -37,29 +37,28 @@ There are a number of environmental that you need to setup. After cloning the re
 
 For it to work you need to set the following environmental variables:
 
-//The provider for the AI models to use.
-MODEL_PROVIDER=OpenAI
+1. The provider for the AI models to use.
+  MODEL_PROVIDER=OpenAI
 
-//The name of LLM model to use.
-MODEL=gpt-4o-mini
+2. The name of LLM model to use.
+  MODEL=gpt-4o-mini
 
-//Name of the embedding model to use.
-EMBEDDING_MODEL=text-embedding-3-large
+3. Name of the embedding model to use.
+  EMBEDDING_MODEL=text-embedding-3-large
 
-//Dimension of the embedding model to use.
-EMBEDDING_DIM=512
+4. Dimension of the embedding model to use.
+  EMBEDDING_DIM=512
 
-//The OpenAI API key to use.
-OPENAI_API_KEY= 
+5. The OpenAI API key to use.
+  OPENAI_API_KEY= 
 
-//The number of similar embeddings to return when retrieving documents.
-TOP_K=10
+6. The number of similar embeddings to return when retrieving documents.
+  TOP_K=10
 
-//Configuration for Pinecone vector store
-//The Pinecone API key.
-PINECONE_API_KEY=
-PINECONE_ENVIRONMENT=
-PINECONE_INDEX_NAME=
+7. Configuration for Pinecone vector store. The Pinecone API key.
+  PINECONE_API_KEY=
+  PINECONE_ENVIRONMENT=
+  PINECONE_INDEX_NAME=
 
 ## Documents 
 The data used in this pilot was scraped from the curriculum.maastrichtuniversity.nl website. In particular the 25 Bachelor and 55 Master programme pages are indexed. An overview can be found here: https://docs.google.com/spreadsheets/d/1XUPV_ehYWoOFcCiGzUvK4ZKMdITq7mChdyFkI-3PXJ4/edit?usp=sharing
