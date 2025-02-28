@@ -71,6 +71,19 @@ There are a number of improvement tasks that needed. Here are some that are curr
 2. Cleaning the source data: While the data scraped is already in a markdown LLM friendly language there is some manual cleaning of data necessary related to tables, video embedd codes, social media feeds, etc.
 3. Adjustment to the frontend for mobile view.
 4. Implementation of analytics. 
+5. Implement filtering strategy by either doc_id, document_id containing both the programme name or based on score filtering.
+
+
+## Some technical notes
+
+The Chunksize is 512
+Overlap: 20
+
+The embedd model in retriever and the generator needs to be the same but the dimensionality can be set flexibly with Open AI's text-embedding-3-large model currently used. 
+
+The retrieval strategy currently is TOP K based
+The metric is cosin
+The Type is Dense
 
 
 ## Learn More
