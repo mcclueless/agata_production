@@ -1,10 +1,10 @@
 
-# Simple Agentic RAG application
+# Chat with UM's Bachelor and Master programmes
 
 This is a [LlamaIndex](https://www.llamaindex.ai/) project using [Next.js](https://nextjs.org/) bootstrapped with [`create-llama`](https://github.com/run-llama/LlamaIndexTS/tree/main/packages/create-llama).
 
 ## Description
-This web app is a pilot for a conversational interface using a vectore store (Pinecone) and a agentic RAG setup to chat with information about Maastricht Universities Bachelor and Master programs. 
+This Simple agentic Rag web app is a pilot for a conversational interface using a vectore store (Pinecone) as index and the llama index retriever to chat with information about Maastricht Universities Bachelor and Master programs. 
 
 An example of it can be found here: https://agata-production.vercel.app 
 
@@ -37,26 +37,26 @@ There are a number of environmental that you need to setup. After cloning the re
 
 For it to work you need to set the following environmental variables:
 
-# The provider for the AI models to use.
+//The provider for the AI models to use.
 MODEL_PROVIDER=OpenAI
 
-# The name of LLM model to use.
+//The name of LLM model to use.
 MODEL=gpt-4o-mini
 
-# Name of the embedding model to use.
+//Name of the embedding model to use.
 EMBEDDING_MODEL=text-embedding-3-large
 
-# Dimension of the embedding model to use.
+//Dimension of the embedding model to use.
 EMBEDDING_DIM=512
 
-# The OpenAI API key to use.
+//The OpenAI API key to use.
 OPENAI_API_KEY= 
 
-# The number of similar embeddings to return when retrieving documents.
+//The number of similar embeddings to return when retrieving documents.
 TOP_K=10
 
-# Configuration for Pinecone vector store
-# The Pinecone API key.
+//Configuration for Pinecone vector store
+//The Pinecone API key.
 PINECONE_API_KEY=
 PINECONE_ENVIRONMENT=
 PINECONE_INDEX_NAME=
