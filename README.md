@@ -63,6 +63,16 @@ For it to work you need to set the following environmental variables:
 ## Documents 
 The data used in this pilot was scraped from the curriculum.maastrichtuniversity.nl website. In particular the 25 Bachelor and 55 Master programme pages are indexed. An overview can be found here: https://docs.google.com/spreadsheets/d/1XUPV_ehYWoOFcCiGzUvK4ZKMdITq7mChdyFkI-3PXJ4/edit?usp=sharing
 
+
+## What to do
+There are a number of improvement tasks that needed. Here are some that are currently going on:
+
+1. Prompt engineering: Getting the system prompt in the .env right. So run it locally and play around with the system prompt.  
+2. Cleaning the source data: While the data scraped is already in a markdown LLM friendly language there is some manual cleaning of data necessary related to tables, video embedd codes, social media feeds, etc.
+3. Adjustment to the frontend for mobile view.
+4. Implementation of analytics. 
+
+
 ## Learn More
 
 To learn more about LlamaIndex, take a look at the following resources:
