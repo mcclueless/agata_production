@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Chat with Collin",
-  description: "Ask questions about Bachelor and Master programs",
+  title: "Chat with Agata",
+  description: "Program Information Chatbot",
 };
 
 export default function RootLayout({

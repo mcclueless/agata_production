@@ -11,36 +11,62 @@ import {
 } from "./llamaindex/streaming/annotations";
 import { createCallbackManager } from "./llamaindex/streaming/events";
 import { generateNextQuestions } from "./llamaindex/streaming/suggestion";
+import { clearKeywords } from "./engine/keywordContext";
 
-initObservability();
-initSettings();
+// Initialize observability and settings
+try {
+  initObservability();
+  initSettings();
+} catch (error) {
+  console.error("[Initialization] Failed to initialize:", error);
+  // Continue execution even if initialization fails
+}
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/**
+ * API route handler for chat requests
+ */
 export async function POST(request: NextRequest) {
-  // Init Vercel AI StreamData and timeout
+  // Init Vercel AI StreamData
   const vercelStreamData = new StreamData();
+  
+  // Track request start time for performance monitoring
+  const requestStartTime = Date.now();
 
   try {
-    const body = await request.json();
+    // Parse request body
+    let body;
+    try {
+      body = await request.json();
+    } catch (parseError) {
+      console.error("[API] Failed to parse request body:", parseError);
+      return NextResponse.json(
+        { error: "Invalid request body format" },
+        { status: 400 }
+      );
+    }
+    
     const { messages, data }: { messages: Message[]; data?: any } = body;
+    
+    // Validate messages
     if (!isValidMessages(messages)) {
       return NextResponse.json(
         {
-          error:
-            "messages are required in the request body and the last message must be from the user",
+          error: "Messages are required in the request body and the last message must be from the user",
         },
         { status: 400 },
       );
     }
 
-    // retrieve document ids from the annotations of all messages (if any)
+    // Retrieve document IDs from the annotations of all messages (if any)
     const ids = retrieveDocumentIds(messages);
-    // create chat engine with index using the document ids
+    
+    // Create chat engine with index using the document IDs
     const chatEngine = await createChatEngine(ids, data);
 
-    // retrieve user message content from Vercel/AI format
+    // Retrieve user message content from Vercel/AI format
     const userMessageContent = retrieveMessageContent(messages);
 
     // Setup callbacks
@@ -56,31 +82,60 @@ export async function POST(request: NextRequest) {
       });
     });
 
+    // Handle completion of the response
     const onCompletion = (content: string) => {
-      chatHistory.push({ role: "assistant", content: content });
-      generateNextQuestions(chatHistory)
-        .then((questions: string[]) => {
-          if (questions.length > 0) {
-            vercelStreamData.appendMessageAnnotation({
-              type: "suggested_questions",
-              data: questions,
-            });
-          }
-        })
-        .finally(() => {
-          vercelStreamData.close();
-        });
+      try {
+        // Add the assistant's response to chat history
+        chatHistory.push({ role: "assistant", content: content });
+        
+        // Generate suggested follow-up questions
+        generateNextQuestions(chatHistory)
+          .then((questions: string[]) => {
+            if (questions.length > 0) {
+              vercelStreamData.appendMessageAnnotation({
+                type: "suggested_questions",
+                data: questions,
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("[API] Error generating next questions:", error);
+          })
+          .finally(() => {
+            // Always close the stream when done
+            vercelStreamData.close();
+            
+            // Log request completion time
+            const requestDuration = Date.now() - requestStartTime;
+            console.info(`[API] Request completed in ${requestDuration}ms`);
+          });
+      } catch (completionError) {
+        console.error("[API] Error in completion handler:", completionError);
+        vercelStreamData.close();
+      }
     };
 
+    // Return the streamed response
     return LlamaIndexAdapter.toDataStreamResponse(response, {
       data: vercelStreamData,
       callbacks: { onCompletion },
     });
   } catch (error) {
-    console.error("[LlamaIndex]", error);
+    // Log the error
+    console.error("[API] Error processing request:", error);
+    
+    // Clear keywords context on error to prevent stale data
+    try {
+      clearKeywords();
+    } catch (clearError) {
+      console.error("[API] Error clearing keywords:", clearError);
+    }
+    
+    // Return an appropriate error response
     return NextResponse.json(
       {
-        detail: (error as Error).message,
+        error: "An error occurred while processing your request",
+        detail: error instanceof Error ? error.message : "Unknown error",
       },
       {
         status: 500,

@@ -10,7 +10,7 @@ export default function CustomChatMessages() {
   return (
     <ChatMessages className="shadow-xl rounded-xl">
       <ChatMessages.List>
-        <ChatMessage message={{ role: "assistant", content: "How can I help you?" }} isLast={messages.length === 0}>
+        <ChatMessage message={{ role: "assistant", content: "What do you want to know? I can answer questions about our bachelor and master programmes." }} isLast={messages.length === 0}>
           <ChatMessageAvatar />
           <ChatMessageContent />
         </ChatMessage>
