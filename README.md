@@ -72,6 +72,19 @@ There are a number of improvement tasks that needed. Here are some that are curr
 3. Adjustment to the frontend for mobile view.
 4. Implementation of analytics. 
 5. Implement filtering strategy by either doc_id, document_id containing both the programme name or based on score filtering.
+6. Adjusting style of the suggested questions
+7. Add official UM font
+8. Incorporate general sources proper
+9. Fixing problems with programmes who are dutch only
+
+
+## What was done: Update 11 April
+
+1. Updated System prompt and suggested questions prompt
+2. Updated Source data to 17 march 2025
+5. Adding Filtering on filename id taking keywords from query as filter keywords
+
+
 
 
 ## Some technical notes
