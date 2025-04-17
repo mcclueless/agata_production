@@ -10,7 +10,7 @@ export default function CustomChatMessages() {
   return (
     <ChatMessages className="shadow-xl rounded-xl">
       <ChatMessages.List>
-        <ChatMessage message={{ role: "assistant", content: "What do you want to know? I can answer questions about our bachelor and master programmes." }} isLast={messages.length === 0}>
+        <ChatMessage message={{ role: "assistant", content: "I am an experimental chatbot which tries to answer your questions about Bachelor and Master Programmes. Although care has been taken to ensure the accuracy of the my responses I can make mistakes. Please read our [Disclaimer](https://www.maastrichtuniversity.nl/disclaimer) in case you have any questions" }} isLast={messages.length === 0}>
           <ChatMessageAvatar />
           <ChatMessageContent />
         </ChatMessage>
