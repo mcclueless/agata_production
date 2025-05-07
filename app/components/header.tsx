@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <div className="z-10 max-w-5xl w-half items-center justify-between text-sm lg:flex">
+    <div className="hidden lg:flex z-10 max-w-5xl w-half items-center justify-between text-sm">
       <div className="fixed bottom-0 left-0 flex h-16 w-full items-end justify-center bg-gradient-to-t from-white via-white to-transparent dark:from-black dark:via-black dark:to-transparent lg:static lg:h-auto lg:w-auto lg:bg-none">
         <a
           href="https://www.maastrichtuniversity.nl"
@@ -20,7 +20,7 @@ export default function Header() {
         </a>
       </div>
       <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-white/30 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-white/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-white/30 lg:p-4 lg:dark:bg-white/30 font-open-sans text-black">
-      Knowledge update: 17 April 2025 &nbsp;
+      Knowledge update: 7 Mai 2025 &nbsp;
       </p>
     </div>
   );

@@ -88,11 +88,11 @@ body {
   @apply h-full;
   background: 
     linear-gradient(
-      rgba(219, 69, 19, 0.53) 5%,
-      rgba(195, 152, 152, 0) 50%,
-      rgba(251, 246, 218, 0.46) 100%
+      rgba(228, 77, 14, 0.5) 5%,
+      rgba(195, 152, 152, 0.3) 50%,
+      rgba(121, 175, 248, 0.46) 100%
     ),
-    url('/bg.jpg');
+    url('/bg2.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
