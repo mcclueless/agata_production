@@ -20,7 +20,7 @@ export default function Header() {
         </a>
       </div>
       <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-white/30 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-white/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-white/30 lg:p-4 lg:dark:bg-white/30 font-open-sans text-black">
-      Update: 7 Mai 2025 - 3:15CET &nbsp;
+      Update: 9 Mai 2025 - 11:00CET &nbsp;
       </p>
     </div>
   );
