@@ -25,22 +25,34 @@ export default function CustomChatMessages() {
           <div className="flex flex-col space-y-2 ml-16 mt-2">
             <div 
               className="cursor-pointer italic cursor-pointer text-sm italic hover:underline" 
-              onClick={() => handleQuestionClick("Who are you and about which programmes can I ask in the pilot phase?")}
+              onClick={() => handleQuestionClick("Who are you, and which programmes can I inquire about during the pilot phase?")}
             >
-              <span className="italic">{"-> Who are you and about which programmes can I ask in the pilot phase?"}</span>
+              <span className="italic">{"-> Who are you, and which programmes can I inquire about during the pilot phase?"}</span>
             </div>
             <div 
               className="cursor-pointer text-sm italic hover:underline" 
-              onClick={() => handleQuestionClick("Will you respond in the language my question is posed?")}
+              onClick={() => handleQuestionClick("Will you respond in the language in which my question is asked?")}
             >
-              <span className="italic">{"-> Will you respond in the language my question is posed?"}</span>
+              <span className="italic">{"-> Will you respond in the language in which my question is asked?"}</span>
             </div>
             <div 
               className="cursor-pointer text-sm italic hover:underline" 
-              onClick={() => handleQuestionClick("Why is Maastricht University the best place to start my study?")}
+              onClick={() => handleQuestionClick("Why is Maastricht University the best choice for starting my studies?")}
             >
-              <span className="italic">{"-> Why is Maastricht University the best place to start my study?"}</span>
+              <span className="italic">{"-> Why is Maastricht University the best choice for starting my studies?"}</span>
             </div>
+            {/* <div 
+              className="cursor-pointer text-sm italic hover:underline" 
+              onClick={() => handleQuestionClick("Can you help me find the right study programme?")}
+            >
+              <span className="italic">{"-> Can you help me find the right study programme?"}</span>
+            </div>
+            <div 
+              className="cursor-pointer text-sm italic hover:underline" 
+              onClick={() => handleQuestionClick("I'm deciding between two bachelor programmes; can you assist me?")}
+            >
+              <span className="italic">{"-> I'm deciding between two bachelor programmes; can you assist me?"}</span>
+            </div> */}
           </div>
         )}
         {messages.map((message, index) => (
