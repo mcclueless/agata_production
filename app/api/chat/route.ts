@@ -1,4 +1,5 @@
 import { initObservability } from "@/app/observability";
+import { trackConversation } from "@/app/observability/conversation-tracking";
 import { LlamaIndexAdapter, Message, StreamData } from "ai";
 import { ChatMessage, Settings } from "llamaindex";
 import { NextRequest, NextResponse } from "next/server";
@@ -68,6 +69,7 @@ export async function POST(request: NextRequest) {
 
     // Retrieve user message content from Vercel/AI format
     const userMessageContent = retrieveMessageContent(messages);
+    const userMessageText = messages[messages.length - 1].content.toString();
 
     // Setup callbacks
     const callbackManager = createCallbackManager(vercelStreamData);
@@ -87,6 +89,14 @@ export async function POST(request: NextRequest) {
       try {
         // Add the assistant's response to chat history
         chatHistory.push({ role: "assistant", content: content });
+        
+        // Track the conversation
+        trackConversation(
+          data?.userId || 'anonymous-local',
+          userMessageText,
+          content,
+          Array.isArray(ids) && ids.length > 0 // Check if index was used
+        );
         
         // Generate suggested follow-up questions
         generateNextQuestions(chatHistory)
