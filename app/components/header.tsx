@@ -13,13 +13,13 @@ export default function Header() {
             // className="rounded-xl"
             src="/UM_logo-transparent.png"
             alt="UM Logo"
-            width={240}
-            height={40}
+            width={180}
+            height={30}
             priority
           />
         </a>
       </div>
-      <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-white/30 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-white/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-white/30 lg:p-4 lg:dark:bg-white/30 font-open-sans text-black">
+      <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-white/30 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-white/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-white/30 lg:p-2 lg:dark:bg-white/30 font-open-sans text-black lg:text-xs">
       Update: 9 Mai 2025 - 11:00CET &nbsp;
       </p>
     </div>
