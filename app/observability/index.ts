@@ -2,18 +2,25 @@ import * as traceloop from "@traceloop/node-server-sdk";
 import * as LlamaIndex from "llamaindex";
 
 export const initObservability = () => {
+  // Get configuration from environment variables
+  const apiKey = process.env.TRACELOOP_API_KEY || "tl_1a595a2448e4407dae47d3ca8d909d6c";
+  const appName = process.env.TRACELOOP_APP_NAME || "llama-app-production";
+  const disableBatch = process.env.TRACELOOP_DISABLE_BATCH !== "false";
+  const debug = process.env.TRACELOOP_DEBUG === "true";
+  
+  // Initialize Traceloop with environment variables
   traceloop.initialize({
-    appName: "llama-app-production",
-    apiKey:"tl_1a595a2448e4407dae47d3ca8d909d6c",
-    // development: tl_1a595a2448e4407dae47d3ca8d909d6c
-    // production: tl_fc1e0f89af3348e8adce9eb66e21ad07
-    disableBatch: true,
+    appName: appName,
+    apiKey: apiKey,
+    disableBatch: disableBatch,
     instrumentModules: {
       llamaIndex: LlamaIndex,
     },
+    // Add debug option if enabled
+    ...(debug && { debug: true }),
   });
   
-  console.info("[Observability] Initialized with Traceloop SDK");
+  console.info(`[Observability] Initialized Traceloop with app name: ${appName}, debug: ${debug ? 'enabled' : 'disabled'}`);
 };
 
 // Check if observability is initialized

@@ -5,13 +5,24 @@ const TRACK_CONTENT = process.env.TRACK_MESSAGE_CONTENT !== 'false';
 
 /**
  * Tracks a conversation between user and chatbot
+ * @param userId - The ID of the user
+ * @param sessionId - The ID of the session (to group conversations)
+ * @param userMessage - The message from the user
+ * @param botResponse - The response from the bot
+ * @param usedIndex - Whether the index was used
+ * @param conversationId - Optional ID for the specific conversation
+ * @returns The conversation ID (generated if not provided)
  */
 export function trackConversation(
   userId: string,
+  sessionId: string,
   userMessage: string,
   botResponse: string,
-  usedIndex: boolean
-) {
+  usedIndex: boolean,
+  conversationId?: string
+): string | undefined {
+  // Generate a conversation ID if not provided
+  const actualConversationId = conversationId || crypto.randomUUID();
   try {
     // Use the same tracer name that Traceloop would recognize
     const tracer = trace.getTracer('llama-app-production');
@@ -24,6 +35,8 @@ export function trackConversation(
     try {
       // Add basic attributes
       span.setAttribute('user.id', userId || 'anonymous');
+      span.setAttribute('session.id', sessionId);
+      span.setAttribute('conversation.id', actualConversationId);
       span.setAttribute('conversation.used_index', usedIndex.toString());
       
       // Add message length metrics
@@ -73,8 +86,12 @@ export function trackConversation(
       // Always end the span
       span.end();
     }
+    
+    // Return the conversation ID for potential future use
+    return actualConversationId;
   } catch (error) {
     // Just log the error and continue - don't let tracking disrupt the app
     console.error('Error tracking conversation:', error);
+    return undefined;
   }
 }

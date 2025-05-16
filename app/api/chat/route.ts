@@ -3,6 +3,7 @@ import { trackConversation } from "@/app/observability/conversation-tracking";
 import { LlamaIndexAdapter, Message, StreamData } from "ai";
 import { ChatMessage, Settings } from "llamaindex";
 import { NextRequest, NextResponse } from "next/server";
+import crypto from "crypto";
 import { createChatEngine } from "./engine/chat";
 import { initSettings } from "./engine/settings";
 import {
@@ -84,15 +85,19 @@ export async function POST(request: NextRequest) {
       });
     });
 
+    // Get or create session ID from cookies
+    const sessionId = request.cookies.get('session_id')?.value || crypto.randomUUID();
+
     // Handle completion of the response
     const onCompletion = (content: string) => {
       try {
         // Add the assistant's response to chat history
         chatHistory.push({ role: "assistant", content: content });
         
-        // Track the conversation
+        // Track the conversation with session ID
         trackConversation(
           data?.userId || 'anonymous-local',
+          sessionId,
           userMessageText,
           content,
           Array.isArray(ids) && ids.length > 0 // Check if index was used
@@ -125,10 +130,26 @@ export async function POST(request: NextRequest) {
       }
     };
 
-    // Return the streamed response
-    return LlamaIndexAdapter.toDataStreamResponse(response, {
+    // Create the stream response
+    const streamResponse = LlamaIndexAdapter.toDataStreamResponse(response, {
       data: vercelStreamData,
       callbacks: { onCompletion },
+    });
+    
+    // Set cookie in the headers directly
+    const headers = new Headers(streamResponse.headers);
+    headers.append(
+      'Set-Cookie',
+      `session_id=${sessionId}; Max-Age=${60 * 60 * 24 * 30}; Path=/; HttpOnly; ${
+        process.env.NODE_ENV === 'production' ? 'Secure; ' : ''
+      }SameSite=Lax`
+    );
+    
+    // Return response with cookie header
+    return new Response(streamResponse.body, {
+      status: streamResponse.status,
+      statusText: streamResponse.statusText,
+      headers: headers,
     });
   } catch (error) {
     // Log the error
