@@ -4,23 +4,31 @@ import { trace, SpanStatusCode, SpanKind } from '@opentelemetry/api';
 const TRACK_CONTENT = process.env.TRACK_MESSAGE_CONTENT !== 'false';
 
 /**
+ * Parameters for tracking a conversation
+ */
+interface ConversationTrackingParams {
+  /** The ID of the user */
+  userId: string;
+  /** The ID of the session (to group conversations) */
+  sessionId: string;
+  /** The message from the user */
+  userMessage: string;
+  /** The response from the bot */
+  botResponse: string;
+  /** Whether the index was used */
+  usedIndex: boolean;
+  /** Optional ID for the specific conversation */
+  conversationId?: string;
+}
+
+/**
  * Tracks a conversation between user and chatbot
- * @param userId - The ID of the user
- * @param sessionId - The ID of the session (to group conversations)
- * @param userMessage - The message from the user
- * @param botResponse - The response from the bot
- * @param usedIndex - Whether the index was used
- * @param conversationId - Optional ID for the specific conversation
+ * @param params - The conversation tracking parameters
  * @returns The conversation ID (generated if not provided)
  */
-export function trackConversation(
-  userId: string,
-  sessionId: string,
-  userMessage: string,
-  botResponse: string,
-  usedIndex: boolean,
-  conversationId?: string
-): string | undefined {
+export function trackConversation(params: ConversationTrackingParams): string | undefined {
+  const { userId, sessionId, userMessage, botResponse, usedIndex, conversationId } = params;
+  
   // Generate a conversation ID if not provided
   const actualConversationId = conversationId || crypto.randomUUID();
   try {

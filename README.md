@@ -4,7 +4,7 @@
 This is a [LlamaIndex](https://www.llamaindex.ai/) project using [Next.js](https://nextjs.org/) bootstrapped with [`create-llama`](https://github.com/run-llama/LlamaIndexTS/tree/main/packages/create-llama).
 
 ## Description
-This Simple agentic Rag web app is a pilot for a conversational interface using a vectore store (Pinecone) as index and the llama index retriever to chat with information about Maastricht Universities Bachelor and Master programs. 
+This simple agentic Rag web app is a pilot for a conversational interface using a vectore store (Pinecone) as index and the llama index retriever to chat with information about Maastricht Universities Bachelor and Master programs. 
 
 An example of it can be found here: https://agata-production.vercel.app 
 
@@ -60,6 +60,21 @@ For it to work you need to set the following environmental variables:
   PINECONE_ENVIRONMENT=
   PINECONE_INDEX_NAME=
 
+8. OpenTelemetry and Traceloop Variables
+
+# OpenTelemetry Configuration currently tracks conversations and llama index engine
+# Set to 'true' to enable tracking message content in telemetry
+TRACK_MESSAGE_CONTENT=true
+
+# Traceloop OpenTelemetry Configuration
+# development:
+# production: 
+
+TRACELOOP_API_KEY=
+TRACELOOP_APP_NAME=
+TRACELOOP_DISABLE_BATCH=true
+TRACELOOP_DEBUG=false
+
 ## Documents 
 The data used in this pilot was scraped from the curriculum.maastrichtuniversity.nl website. In particular the 25 Bachelor and 55 Master programme pages are indexed. An overview can be found here: https://docs.google.com/spreadsheets/d/1XUPV_ehYWoOFcCiGzUvK4ZKMdITq7mChdyFkI-3PXJ4/edit?usp=sharing
 
@@ -83,8 +98,6 @@ There are a number of improvement tasks that needed. Here are some that are curr
 1. Updated System prompt and suggested questions prompt
 2. Updated Source data to 17 march 2025
 5. Adding Filtering on filename id taking keywords from query as filter keywords
-
-
 
 
 ## Some technical notes

@@ -95,13 +95,13 @@ export async function POST(request: NextRequest) {
         chatHistory.push({ role: "assistant", content: content });
         
         // Track the conversation with session ID
-        trackConversation(
-          data?.userId || 'anonymous-local',
+        trackConversation({
+          userId: data?.userId || 'anonymous-local',
           sessionId,
-          userMessageText,
-          content,
-          Array.isArray(ids) && ids.length > 0 // Check if index was used
-        );
+          userMessage: userMessageText,
+          botResponse: content,
+          usedIndex: Array.isArray(ids) && ids.length > 0 // Check if index was used
+        });
         
         // Generate suggested follow-up questions
         generateNextQuestions(chatHistory)
